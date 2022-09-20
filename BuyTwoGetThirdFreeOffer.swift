@@ -14,7 +14,9 @@ class BuyTwoGetThirdFreeOffer :MultiBuyOffer {
     }
     
     func applies(to purchases: [Product]) -> Bool {
-        return false
+        if purchases.count < 2 { return false }
+        let purchasesIds = purchases.map { $0.id }
+        return Array(Set(productIds).intersection(Set(purchasesIds))).count == 2 ? true : false
     }
     
     func discount(for purchases: [Product]) -> Int {

@@ -15,7 +15,11 @@ class ThreeMeatsForTenPoundOffer : CappedOffer{
     
     
     func applies(to purchases: [Product]) -> Bool {
-        return false
+       
+        let ValidProducts = purchases.filter({ productIds.contains($0.id) })
+        if ValidProducts.count < productQuantity { return false }
+        let price = ValidProducts.reduce(0) { $0 + $1.price }
+        return price <= maxPrice
     }
     
     func discount(for purchases: [Product]) -> Int {

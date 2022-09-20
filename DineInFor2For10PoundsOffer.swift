@@ -18,7 +18,13 @@ class DineInFor2For10PoundsOffer : SelectionOffer {
         name = "Dine in for 2 for £10"
     }
     func applies(to purchases: [Product]) -> Bool {
-        return false
+        let purchasesIds = purchases.map { $0.id }
+        var result = true
+        for productSet in productIdGroups {
+            result = Array(Set(purchasesIds).intersection(productSet)).count > 0
+            if result == false { break }
+        }
+        return result
     }
     
     func discount(for purchases: [Product]) -> Int {
