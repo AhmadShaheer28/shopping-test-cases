@@ -21,15 +21,15 @@ class BuyTwoGetThirdFreeOffer :MultiBuyOffer {
     
     func discount(for purchases: [Product]) -> Int {
         var total = 0
-        var count = 1
+        var count = quantityFree
         var prod_list = purchases
         prod_list.sort(by: { $0.price > $1.price })
         for prod in prod_list {
-            if count == 3 {
+            if count == quantityFree + quantityPaid {
                 total += prod.price
-                count = 1
+                count = quantityFree
             } else {
-                count += 1
+                count += quantityFree
             }
         }
         return total
