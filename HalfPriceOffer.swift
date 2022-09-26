@@ -24,11 +24,11 @@ class HalfPriceOffer : DiscountedPriceOffer {
         for id in productIds {
             for product in purchases {
                 if product.id == id {
-                    total += (product.price)/2
+                    total += Int(Double(Double(product.price)*discountPercentage).rounded(.down))
                 }
             }
         }
 
-        return Int(total)
+        return total
     }
 }

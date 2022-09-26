@@ -28,7 +28,34 @@ class DineInFor2For10PoundsOffer : SelectionOffer {
     }
     
     func discount(for purchases: [Product]) -> Int {
-        return 0
+        var prod_list=purchases
+        prod_list.sort(by: { $0.price < $1.price })
+        var total = 0
+        for productSet in productIdGroups {
+            var first=true
+            for product in prod_list {
+                for set in productSet{
+                    if product.id==set && first{
+                        total+=product.price
+                        first=false
+                    }
+                    else if product.id==set && first==false 
+                    {
+                        total+=51
+                    }
+                }
+                                        
+            }
+        }
+            
+        
+        if total>1000
+        {
+            total-=1000
+        }
+            
+        return Int(total)
+
     }
     
 }

@@ -17,8 +17,8 @@ class TenPenceOffOffer : MoneyOffOffer {
         var sum = 0
         for item in list {
             sum += item.price
-            if sum >= 10 {
-                return 10
+            if sum >= discount {
+                return discount
             }
         }
         return sum

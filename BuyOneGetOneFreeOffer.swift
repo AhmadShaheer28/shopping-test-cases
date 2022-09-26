@@ -14,15 +14,16 @@ class BuyOneGetOneFreeOffer : MultiBuyOffer {
     }
     func applies(to purchases: [Product]) -> Bool {
         var count = 0
+        
         for id in productIds {
             for product in purchases {
                 if product.id == id {
-                    count+=1
+                    count += 1
                 }
             }
         }
         
-        if count > 1{
+        if count > quantityFree {
             return true
         }
         return false
@@ -31,18 +32,18 @@ class BuyOneGetOneFreeOffer : MultiBuyOffer {
     func discount(for purchases: [Product]) -> Int {
         var total = 0
         var count = 0
-        var pre_price=0
-        var prod_list=purchases
+        var pre_price = 0
+        var prod_list = purchases
         prod_list.sort(by: { $0.price > $1.price })
         for product in prod_list {
             for  id in productIds{
                 if product.id == id {
-                    count+=1
+                    count += 1
                     if count == 1 {
                         pre_price=(product.price)
                     }
                     if count == 2 {
-                        if pre_price > (product.price){
+                        if pre_price > (product.price) {
                             pre_price = (product.price)
                         }
                         total += pre_price

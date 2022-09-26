@@ -15,17 +15,41 @@ var name: String
         productIds = Set([1012])
     }
     func applies(to purchases: [Product]) -> Bool {
+        var prod_list = [Int]()
         for id in productIds {
-            if purchases.contains(where: { $0.id == id }) {
-                return true
+            for product in purchases {
+                if product.id == id {
+                    prod_list.append(id)
+                }
             }
+        }
+        
+        if prod_list.count >= quantityPaid {
+            return true
         }
         return false
     }
     
     func discount(for purchases: [Product]) -> Int {
+        var total = 0
+        var prod_list = [Int]()
+        for id in productIds {
+            for product in purchases {
+                if product.id == id {
+                    prod_list.append(id)
+                    total += product.price
+                }
+            }
+        }
         
-        return 0
+        if prod_list.count >= quantityPaid {
+            return Int(Double(total) * discountPercentage)
+        }
+        
+        return total
     }
     
+    
 }
+
+
